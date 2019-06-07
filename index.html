@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <title>Mini App</title>
-    <link rel="stylesheet" type="text/css"href="mystyle.css">
+    <link rel="stylesheet" type="text/css"href="assets/css/style.css">
    
   </head>
   <body>
@@ -96,8 +96,7 @@
         select.addEventListener("click", letsCalculateBMI);
       };
       
-      onload= powerupTheUI();
-      
+     
       const displayUsers = (users) =>{
         users.forEach((user)=> {
           let value = document.createElement('option');
@@ -126,7 +125,8 @@
                 
       };
 
-      startApp();
+      onload= startApp();
+
     </script>
   </body>
 </html>
