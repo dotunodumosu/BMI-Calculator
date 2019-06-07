@@ -14,7 +14,7 @@
     <button id="filter-query" class="mdc-icon-button material-icons">filter_list</button>
     <div class="select">
       <select class="select-text">
-        <option selected="true" disabled="disabled">Select User</option>
+        <option >Select User</option>
       </select>
     </div>
     <div class="user-photo">
@@ -51,27 +51,28 @@
     </div>
       
     <script>
-      const users = [];
-           
-      const computeBMI = ({weight,height,country}) => {
-        const LowBMIcountries = ["Chad", "Sierra Leone", "Mali", "Gambia", "Uganda", "Ghana", "Senegal", "Somalia", "Ivory Coast", "Isreal"];
-        const bmiRate = 0.82;
-        let ConvertHeight = height * 0.3048;
-        let BMI = weight / Math.pow(ConvertHeight, 2);
-        
-        if (LowBMIcountries.includes(country)) {
-          BMI *= bmiRate;
-        }
-        return Math.round(BMI, 2);
-        
-      };
+    const users = [];
+    // maybe we need default values 
+
+    const computeBMI = ({weight,height,country}) => {
+    const LowBMIcountries = ["Chad", "Sierra Leone", "Mali", "Gambia", "Uganda", "Ghana", "Senegal", "Somalia", "Ivory Coast", "Isreal"];
+    const bmiRate = 0.82;
+    let ConvertHeight = height * 0.3048;
+    let BMI = weight / Math.pow(ConvertHeight, 2);
+    
+    if (LowBMIcountries.includes(country)) {
+        BMI *= bmiRate;
+    }
+    return Math.round(BMI, 2);
+    
+    };
       
       const getSelectedUser = (userId) => {
         return users.find(({id}) => id === userId);
       };
       
       const displaySelectedUser = ({target}) => {
-        const user = getSelectedUser(target.value);
+        const user = getSelectedUser(target.value); // not sure about this usage yet. 
         const properties = Object.keys(user);
         properties.forEach(prop => {
           const span = document.querySelector('span[data-${prop}-value]');
@@ -80,20 +81,43 @@
           }
         });
       };
-      
+
+      const getUserInfo = () => {
+          console.log();
+        // return document.querySelector('.select-text').getAttribute("selected");
+      };
+
       const letsCalculateBMI = () => {
-        const value = document.querySelector('.select-text').value;
-        const user = getSelectedUser(target.value);
+        // you need to correctly get the selected value here, the query is happening
+        // on immediate focus of the drop down list, but instead you will want to use 
+        // the onChange event. or something like that. 
+        const selectUser = document.querySelector('.select-text').value;
+        console.log(selectUser + " test"); // lets see what this is 
+        const user = selectUser;
+        return;
         const bmi = computeBMI(user);
         document.querySelector('#outcome').innerText = bmi;
       };
       
       const powerupTheUI = () => {
+        console.log("step 2 powerupTheUI")
         const button = document.querySelector('#oracle');
         button.addEventListener("change", displaySelectedUser);
         
         const select = document.querySelector('.select-text');
-        select.addEventListener("click", letsCalculateBMI);
+        select.addEventListener("change", letsCalculateBMI);
+
+        /*
+        activities.addEventListener("change", function() {
+        if(activities.value == "addNew")
+            {
+                addActivityItem();
+            }
+        });
+        */
+
+
+        
       };
       
      
@@ -120,6 +144,7 @@
       };
       
       const startApp = () => {
+        console.log("step 1");
         powerupTheUI();
         fetchAndDisplayUsers();
                 
