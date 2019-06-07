@@ -112,53 +112,40 @@
       
     <script>
       const users = [];
-      const countries = [
-                         'chad',
-                         'sierra leone',
-                         'mali',
-                         'gambia',
-                         'uganda',
-                         'ghana',
-                         'senegal',
-                         'somalia',
-                         'ivory coast',
-                         'isreal',
-        ];
+           
+      const computeBMI = ({weight,height,country}) => {
+        const LowBMIcountries = ["Chad", "Sierra Leone", "Mali", "Gambia", "Uganda", "Ghana", "Senegal", "Somalia", "Ivory Coast", "Isreal"];
+        const bmiRate = 0.82;
+        let ConvertHeight = height * 0.3048;
+        let BMI = weight / Math.pow(ConvertHeight, 2);
+        
+        if (LowBMIcountries.includes(country)) {
+          BMI *= bmiRate;
+        }
+        return Math.round(BMI, 2);
+        
+      };
       
-      const computeBMI = ({weight,height,country}) =>{
-        const newHeight = height*0.3048;
-        const bmi = (weight/(newHeight^2));
-        const newBmi = bmi * 0.82;
-        const check = countries.find(state => state === country);
-        const finalBmi = check ? newBmi : bmi;
-        return finalBmi.toFixed(1);
-      }
+      const getSelectedUser = (userId) => {
+        return users.find(({id}) => id === userId);
+      };
       
-      const getSelectedUser = (userId)=>{
-        return users.find(({id}) => id == userId);
-      }
-      
-      const displaySelectedUser = ({target})=>{
+      const displaySelectedUser = ({target}) => {
         const user = getSelectedUser(target.value);
         const properties = Object.keys(user);
-        
-        const properties.forEach(prop => {
-          const element1 = document.querySelector('span[data-${prop}]');
-          const element2 = document.querySelector('span[data-${prop}-value]');
-          if (element1){
-            element1.textContent = prop;
-            element2.textContent = user[prop];
+        properties.forEach(prop => {
+          const span = document.querySelector('span[data-${prop}-value]');
+          if (span) {
+            span.textContent= user[prop];
           }
-        })
+        });
       };
       
       const letsCalculateBMI = () => {
-        const element = document.querySelector('.select-text').value;
-        const user = getSelectedUser(element.value);
-        
+        const value = document.querySelector('.select-text').value;
+        const user = getSelectedUser(target.value);
         const bmi = computeBMI(user);
-        const pTag = document.querySelector('#outcome p');
-        pTag.textContent = bmi;
+        document.querySelector('#outcome').innerText = bmi;
       };
       
       const powerupTheUI = () => {
@@ -169,15 +156,6 @@
         select.addEventListener("click", letsCalculateBMI);
       };
       
-      const displayUsers = (users) =>{
-        users.forEach((user)=> {
-          let value = document.createElement('option');
-          value.setAttribute('value', user.id);
-          value.textContent = user.name;
-          document.querySelector('.select-text').appendChild(value);
-        });
-      }
-      
       const fetchAndDisplayUsers = () => {
         users.push({
           age: 40,
@@ -187,21 +165,12 @@
           name: 'Charles Odili',
           id: 'dfhb454768DghtF'
         });
-      }
-          age: 37,
-          weight: 70,
-          height: 6,
-          country: 'Nigeria',
-          name: 'Oluwasomidotun Odumosu',
-          id: 'dhgs283674DsgcL'
-      });
-      
-      displayUsers(users);
+
+        displayUsers(users);
       };
       
       const startApp = () => {
-        powerupTheUI();
-        fetchAndDisplayUsers();
+        
       };
 
       startApp();
