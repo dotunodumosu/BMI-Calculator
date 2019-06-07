@@ -156,6 +156,17 @@
         select.addEventListener("click", letsCalculateBMI);
       };
       
+      onload= powerupTheUI();
+      
+      const displayUsers = (users) =>{
+        users.forEach((user)=> {
+          let value = document.createElement('option');
+          value.setAttribute('value', user.id);
+          value.textContent = user.name;
+          document.querySelector('.select-text').appendChild(value);
+        });
+      }
+      
       const fetchAndDisplayUsers = () => {
         users.push({
           age: 40,
@@ -170,7 +181,9 @@
       };
       
       const startApp = () => {
-        
+        powerupTheUI();
+        fetchAndDisplayUsers();
+                
       };
 
       startApp();
