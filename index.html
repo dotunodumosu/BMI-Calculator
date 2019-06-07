@@ -108,14 +108,9 @@
       };
 
       const letsCalculateBMI = () => {
-        // you need to correctly get the selected value here, the query is happening
-        // on immediate focus of the drop down list, but instead you will want to use 
-        // the onChange event. or something like that. 
         const selectUser = document.querySelector('.select-text').value;
         console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is 
         const user = selectUser;
-        // we need to get more information about the user here before we call computeBMI
-        // we need an object with the {id, weight, height, country:string}
         const bmi = computeBMI(user);
         document.querySelector('#outcome').innerText = bmi;
       };
@@ -128,16 +123,7 @@
         const select = document.querySelector('.select-text');
         select.addEventListener("change", letsCalculateBMI);
 
-        /*
-        activities.addEventListener("change", function() {
-        if(activities.value == "addNew")
-            {
-                addActivityItem();
-            }
-        });
-        */
-        
-      };
+       };
       
       const displayUsers = (users) =>{
         users.forEach((user)=> {
