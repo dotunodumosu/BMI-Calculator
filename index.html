@@ -51,7 +51,24 @@
     </div>
       
     <script>
-    const users = [];
+    const users = [
+            {
+                age: 40,
+                weight: 75,
+                height: 6,
+                country: 'Nigeria',
+                name: 'Charles Odili',
+                id: 'dfhb454768DghtF'
+            },
+            {
+                age: 10,
+                weight: 975,
+                height: 5,
+                country: 'America',
+                name: 'Chad Test',
+                id: '762DghtFdf1234'
+            }
+        ];
     // maybe we need default values 
 
     const computeBMI = ({weight,height,country}) => {
@@ -82,19 +99,15 @@
         });
       };
 
-      const getUserInfo = () => {
-          console.log();
-        // return document.querySelector('.select-text').getAttribute("selected");
-      };
-
       const letsCalculateBMI = () => {
         // you need to correctly get the selected value here, the query is happening
         // on immediate focus of the drop down list, but instead you will want to use 
         // the onChange event. or something like that. 
         const selectUser = document.querySelector('.select-text').value;
-        console.log(selectUser + " test"); // lets see what this is 
+        console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is 
         const user = selectUser;
-        return;
+        // we need to get more information about the user here before we call computeBMI
+        // we need an object with the {id, weight, height, country:string}
         const bmi = computeBMI(user);
         document.querySelector('#outcome').innerText = bmi;
       };
@@ -115,12 +128,9 @@
             }
         });
         */
-
-
         
       };
       
-     
       const displayUsers = (users) =>{
         users.forEach((user)=> {
           let value = document.createElement('option');
