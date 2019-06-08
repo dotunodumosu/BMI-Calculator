@@ -51,8 +51,9 @@
     </div>
       
     <script>
-    const users = [
-            {
+    // this variable may need to be encapsulated.
+    // todo: make sure its not at root or global.
+    const users =[{
                 age: 40,
                 weight: 75,
                 height: 6,
@@ -74,10 +75,24 @@
                 height: 5,
                 country: 'Greenland',
                 name: 'Bob Test',
-                id: '762DghtFdf1234'
-            }
-        ];
+                id: '212Dghtadf15d4'
+            }];
+
     // maybe we need default values 
+    const calculateBMI = () => {
+        const selectUser = document.querySelector('.select-text').value;
+        console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is 
+        for (var key in users) {
+            if (users.hasOwnProperty(key)) {
+                console.log(key + " -> " + users[key].name);
+                // users[key] *= 2;
+            }
+        }
+        console.log(selectUser);
+        const bmi = computeBMI({weight:123,height:7,country:'Chad'});
+        document.querySelector('#outcome').innerText = bmi;
+      };
+
 
     const computeBMI = ({weight,height,country}) => {
     const LowBMIcountries = ["Chad", "Sierra Leone", "Mali", "Gambia", "Uganda", "Ghana", "Senegal", "Somalia", "Ivory Coast", "Isreal"];
@@ -92,36 +107,18 @@
     
     };
       
-      const getSelectedUser = (userId) => {
-        return users.find(({id}) => id === userId);
-      };
-      
-      const displaySelectedUser = ({target}) => {
-        const user = getSelectedUser(target.value); // not sure about this usage yet. 
-        const properties = Object.keys(user);
-        properties.forEach(prop => {
-          const span = document.querySelector('span[data-${prop}-value]');
-          if (span) {
-            span.textContent= user[prop];
-          }
-        });
-      };
+   //   const getSelectedUser = (userId) => {
+   //     return users.find(({id}) => id === userId);
+   //   };
 
-      const letsCalculateBMI = () => {
-        const selectUser = document.querySelector('.select-text').value;
-        console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is 
-        const user = selectUser;
-        const bmi = computeBMI(user);
-        document.querySelector('#outcome').innerText = bmi;
-      };
+      
       
       const powerupTheUI = () => {
         console.log("step 2 powerupTheUI")
         const button = document.querySelector('#oracle');
-        button.addEventListener("change", displaySelectedUser);
-        
+        // button.addEventListener("change", displaySelectedUser);
         const select = document.querySelector('.select-text');
-        select.addEventListener("change", letsCalculateBMI);
+        select.addEventListener("change", calculateBMI);
 
        };
       
