@@ -53,101 +53,104 @@
     <script>
     // this variable may need to be encapsulated.
     // todo: make sure its not at root or global.
-    const users =[{
-                age: 40,
-                weight: 75,
-                height: 6,
-                country: 'Nigeria',
-                name: 'Charles Odili',
-                id: 'dfhb454768DghtF'
-            },
-            {
-                age: 120,
-                weight: 975,
-                height: 5,
-                country: 'America',
-                name: 'Chad Test',
-                id: '762DghtFdf1234'
-            },
-            {
-                age: 22,
-                weight: 975,
-                height: 5,
-                country: 'Greenland',
-                name: 'Bob Test',
-                id: '212Dghtadf15d4'
-            }];
+const users = [
+  {
+    age: 40,
+    weight: 75,
+    height: 6,
+    country: "Nigeria",
+    name: "Charles Odili",
+    id: "dfhb454768DghtF"
+  },
+  {
+    age: 120,
+    weight: 975,
+    height: 5,
+    country: "America",
+    name: "Chad Test",
+    id: "762DghtFdf1234"
+  },
+  {
+    age: 22,
+    weight: 975,
+    height: 5,
+    country: "Greenland",
+    name: "Bob Test",
+    id: "212Dghtadf15d4"
+  }
+];
 
-    // maybe we need default values 
-    const calculateBMI = () => {
-        const selectUser = document.querySelector('.select-text').value;
-        console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is 
-        for (var key in users) {
-            if (users.hasOwnProperty(key)) {
-                console.log(key + " -> " + users[key].name);
-                // users[key] *= 2;
-            }
-        }
-        console.log(selectUser);
-        const bmi = computeBMI({weight:123,height:7,country:'Chad'});
-        document.querySelector('#outcome').innerText = bmi;
-      };
+// maybe we need default values
+const calculateBMI = () => {
+  const selectUser = document.querySelector(".select-text").value;
+  console.log(selectUser + " Step 3 lets Calculate BMI "); // lets see what this is
+  for (var key in users) {
+    if (users.hasOwnProperty(key)) {
+      console.log(key + " -> " + users[key].id);
 
-
-    const computeBMI = ({weight,height,country}) => {
-    const LowBMIcountries = ["Chad", "Sierra Leone", "Mali", "Gambia", "Uganda", "Ghana", "Senegal", "Somalia", "Ivory Coast", "Isreal"];
-    const bmiRate = 0.82;
-    let ConvertHeight = height * 0.3048;
-    let BMI = weight / Math.pow(ConvertHeight, 2);
-    
-    if (LowBMIcountries.includes(country)) {
-        BMI *= bmiRate;
+      if (selectUser == users[key].id) {
+        // build the object, call the function computeBMI
+        const bmi = computeBMI({
+          weight: users[key].weight,
+          height: users[key].height,
+          country: users[key].country
+        });
+        document.querySelector("#outcome").innerText = bmi;
+      }
+      // users[key] *= 2;
     }
-    return Math.round(BMI, 2);
-    
-    };
-      
-   //   const getSelectedUser = (userId) => {
-   //     return users.find(({id}) => id === userId);
-   //   };
+  }
+  console.log(selectUser);
+};
 
-      
-      
-      const powerupTheUI = () => {
-        console.log("step 2 powerupTheUI")
-        const button = document.querySelector('#oracle');
-        // button.addEventListener("change", displaySelectedUser);
-        const select = document.querySelector('.select-text');
-        select.addEventListener("change", calculateBMI);
+const computeBMI = ({ weight, height, country }) => {
+  const LowBMIcountries = [
+    "Chad",
+    "Sierra Leone",
+    "Mali",
+    "Gambia",
+    "Uganda",
+    "Ghana",
+    "Senegal",
+    "Somalia",
+    "Ivory Coast",
+    "Isreal"
+  ];
+  const bmiRate = 0.82;
+  let ConvertHeight = height * 0.3048;
+  let BMI = weight / Math.pow(ConvertHeight, 2);
 
-       };
-      
-      const displayUsers = (users) =>{
-        users.forEach((user)=> {
-          let value = document.createElement('option');
-          value.setAttribute('value', user.id);
-          value.textContent = user.name;
-          document.querySelector('.select-text').appendChild(value);
-        });
-      }
+  if (LowBMIcountries.includes(country)) {
+    BMI *= bmiRate;
+  }
+  return Math.round(BMI, 2);
+};
 
-      const populateDropDownList = () =>{
-        users.forEach((user)=> {
-          let value = document.createElement('option');
-          value.setAttribute('value', user.id);
-          value.textContent = user.name;
-          document.querySelector('.select-text').appendChild(value);
-        });
-      }
-     
-      const startApp = () => {
-        console.log("step 1");
-        powerupTheUI();
-        populateDropDownList();
-        // fetchAndDisplayUsers();
-      };
+const powerupTheUI = () => {
+  console.log("step 2 powerupTheUI");
+  const button = document.querySelector("#oracle");
+  // button.addEventListener("change", displaySelectedUser);
+  const select = document.querySelector(".select-text");
+  select.addEventListener("change", calculateBMI);
+};
 
-      onload= startApp();
+const populateDropDownList = () => {
+  users.forEach(user => {
+    let value = document.createElement("option");
+    value.setAttribute("value", user.id);
+    value.textContent = user.name;
+    document.querySelector(".select-text").appendChild(value);
+  });
+};
+
+const startApp = () => {
+  console.log("step 1");
+  powerupTheUI();
+  populateDropDownList();
+};
+
+onload = startApp();
+
 
     </script>
   </body>
